@@ -6,7 +6,7 @@
 /*   By: cfrohlic <cfrohlic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 17:10:48 by cfrohlic          #+#    #+#             */
-/*   Updated: 2022/03/03 10:42:41 by cfrohlic         ###   ########.fr       */
+/*   Updated: 2022/03/03 17:09:53 by cfrohlic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	childprocess_a(char *argv[], char *envp[], int *fd)
 		ft_printf("Failure on opening input\n");
 		return (1);
 	}
-	if(write(fd[0]))
+	write(fd[0], "1", 1);
+
 
 
 	ft_printf("Child porcess a in progress\n");

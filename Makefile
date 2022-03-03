@@ -6,14 +6,15 @@
 #    By: cfrohlic <cfrohlic@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/11 16:29:35 by cfrohlic          #+#    #+#              #
-#    Updated: 2022/03/02 17:21:16 by cfrohlic         ###   ########.fr        #
+#    Updated: 2022/03/03 16:29:46 by cfrohlic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
 SRCS =	pipex.c \
-		childprocess.c
+		childprocess.c \
+		init_cmds.c
 
 OBJS = ${SRCS:.c=.o}
 
