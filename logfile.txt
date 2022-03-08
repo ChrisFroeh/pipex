@@ -1,0 +1,11 @@
+
+pipex_version01:
+	- first push
+
+pipex_version02:
+	- changed 'ft_frintf' to 'ft_printf_fd'; so it can be defined to which file descripter to write.
+	- first version to be able to be evaluated
+
+pipex_version03:
+	- added logfile.txt
+
