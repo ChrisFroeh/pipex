@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putsupernbr.c                                   :+:      :+:    :+:   */
+/*   ft_putsupernbr_fd.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cfrohlic <cfrohlic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 14:20:58 by cfrohlic          #+#    #+#             */
-/*   Updated: 2022/02/11 12:09:37 by cfrohlic         ###   ########.fr       */
+/*   Updated: 2022/03/07 16:32:14 by cfrohlic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdarg.h>
-#include "ft_printf.h"
+#include "ft_printf_fd.h"
 
 /*
 ** writes 'n' as decimal or hexadecimal (depending on 'base')
@@ -20,7 +20,7 @@
 ** returns the number of written characters.
 */
 
-int	ft_putsupernbr(long n, unsigned int base, int upper)
+int	ft_putsupernbr_fd(long n, unsigned int base, int upper, int fd)
 {
 	int		returnvalue;
 	char	*str0;
@@ -32,17 +32,17 @@ int	ft_putsupernbr(long n, unsigned int base, int upper)
 	returnvalue = 0;
 	if (n < 0)
 	{
-		returnvalue += ft_putchar('-');
+		returnvalue += ft_putchar_fd('-', fd);
 		n = n * -1;
 	}
 	if (n > (base - 1))
 	{
-		returnvalue += ft_putsupernbr(n / base, base, upper);
+		returnvalue += ft_putsupernbr_fd(n / base, base, upper, fd);
 	}
 	if (upper == 0)
 		c = str0[n % base];
 	else
 		c = str1[n % base];
-	returnvalue += write(1, &c, 1);
+	returnvalue += write(fd, &c, 1);
 	return (returnvalue);
 }

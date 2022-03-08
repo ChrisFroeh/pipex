@@ -6,7 +6,7 @@
 /*   By: cfrohlic <cfrohlic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 11:12:27 by cfrohlic          #+#    #+#             */
-/*   Updated: 2022/03/03 18:07:25 by cfrohlic         ###   ########.fr       */
+/*   Updated: 2022/03/08 12:48:01 by cfrohlic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,48 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <string.h>
 # include <stdio.h>
 # include <sys/wait.h>
 # include <errno.h>
-# include "ft_printf/ft_printf.h"
+# include "ft_printf_fd/ft_printf_fd.h"
 
-typedef struct s_cmd
+# define READ_END 0
+# define WRITE_END 1
+
+typedef struct s_data
 {
-	struct s_cmd	*next;
-	char 			*path;
-	char			*cmd;
-	int				input;
-	int				output;
-}				t_cmd;
+	char	**paths;
+	char	**cmd;
+	char	*terminal;
+	int		input;
+	int		output;
+	int		fd[2];
+}		t_data;
 
+char	**set_paths(char *envp[]);
+char	*search_path(char *envp[], char *str, int j);
+char	*set_terminal(char *envp[]);
+char	**set_cmd(char *argv[], int i);
 
-//int		childprocess_a(char *argv[], char *envp[], int *fd);
-//int		childprocess_b(char *argv[], char *envp[], int *fd);
-int		init_cmds(char *argv[], t_cmd **cmdlist, char *envp[]);
-void	ft_init_lst(t_cmd **cmdlist, t_cmd *new);
-t_cmd	*ft_lstnew(char *argv, char *envp[]);
-void	ft_lstaddback(t_cmd **cmdlist, t_cmd *new);
-void	ft_destroy_cmdlist(t_cmd **cmdlist);
+void	mischief_managed(t_data *data, int nbr, char *s);
+
+void	open_files(t_data *data, char *argv[]);
+void	child_process(t_data *data, char *argv[], char *envp[]);
+void	parent_process(t_data *data, char *argv[], char *envp[]);
+int		redirecting_child(t_data *data, char *envp[]);
+int		redirecting_parent(t_data *data, char *envp[]);
+
+int		cmd_execution(t_data *data, char *envp[]);
+char	*find_executable(t_data *data);
+
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	**ft_split(char const *s, char c);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t	ft_strlen(const char *s);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strdup(const char *s1);
+
+void	cleanup(t_data *data);
 
 #endif

@@ -6,30 +6,40 @@
 #    By: cfrohlic <cfrohlic@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/11 16:29:35 by cfrohlic          #+#    #+#              #
-#    Updated: 2022/03/03 16:29:46 by cfrohlic         ###   ########.fr        #
+#    Updated: 2022/03/08 12:27:19 by cfrohlic         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-SRCS =	pipex.c \
-		childprocess.c \
-		init_cmds.c
+SRCS =	cleanup.c \
+		ft_split.c \
+		ft_strdup.c \
+		ft_substr.c \
+		mischief_manager.c \
+		pipex.c \
+		redirecting_process.c \
+		set_cmd.c \
+		set_paths.c
 
 OBJS = ${SRCS:.c=.o}
 
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
 
-FT_PRINTF_PATH = ft_printf/
+FT_PRINTF_PATH = ft_printf_fd/
 
-all: subsystem ${NAME}
+.c.o:
+	@${CC} ${FLAGS} -g -c $< -o $@
 
-subsystem:
+${NAME}: ft_printf_fd/ft_printf_fd.a ${OBJS}
+	${CC} ${FLAGS} ${OBJS} ${FT_PRINTF_PATH}ft_printf_fd.a -o ${NAME}
+	@printf "##### PIPEX READY #####\n"
+
+ft_printf_fd/ft_printf_fd.a:
 	@make	-C ${FT_PRINTF_PATH}
 
-${NAME}: ${OBJS}
-	${CC} ${FLAGS} ${OBJS} ${FT_PRINTF_PATH}ft_printf.a -o ${NAME}
+all: ${NAME}
 
 clean:
 	@make -C ${FT_PRINTF_PATH} clean

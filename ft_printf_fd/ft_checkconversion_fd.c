@@ -1,47 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_checkconversion.c                               :+:      :+:    :+:   */
+/*   ft_checkconversion_fd.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cfrohlic <cfrohlic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 14:20:58 by cfrohlic          #+#    #+#             */
-/*   Updated: 2021/10/26 10:09:19 by cfrohlic         ###   ########.fr       */
+/*   Updated: 2022/03/08 12:25:00 by cfrohlic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdarg.h>
-#include "ft_printf.h"
+#include "ft_printf_fd.h"
 
 /*
 ** checks the character after '%' and decides further action
 ** returns the number of written characters.
 */
 
-int	ft_checkconversion(char conversion, va_list arguments)
+int	ft_checkconversion_fd(char conversion, va_list arguments, int fd)
 {
-	int		returnvalue;
+	int		rval;
 
-	returnvalue = 0;
+	rval = 0;
 	if (conversion == 'c')
-		returnvalue += ft_putchar(va_arg(arguments, int));
+		rval += ft_putchar_fd(va_arg(arguments, int), fd);
 	else if (conversion == 's')
-		returnvalue += ft_putstr(va_arg(arguments, char *));
+		rval += ft_putstr_fd(va_arg(arguments, char *), fd);
 	else if (conversion == 'p')
 	{
-		returnvalue += write(1, "0x", 2);
-		returnvalue += ft_putaddress(va_arg(arguments, long long));
+		rval += write(fd, "0x", 2);
+		rval += ft_putaddress_fd(va_arg(arguments, long long), fd);
 	}
 	else if (conversion == 'd' || conversion == 'i')
-		returnvalue += ft_putsupernbr(va_arg(arguments, int), 10, 0);
+		rval += ft_putsupernbr_fd(va_arg(arguments, int), 10, 0, fd);
 	else if (conversion == 'u')
-		returnvalue += ft_putsupernbr(va_arg(arguments, unsigned int), 10, 0);
+		rval += ft_putsupernbr_fd(va_arg(arguments, unsigned int), 10, 0, fd);
 	else if (conversion == 'x')
-		returnvalue += ft_putsupernbr(va_arg(arguments, unsigned int), 16, 0);
+		rval += ft_putsupernbr_fd(va_arg(arguments, unsigned int), 16, 0, fd);
 	else if (conversion == 'X')
-		returnvalue += ft_putsupernbr(va_arg(arguments, unsigned int), 16, 1);
+		rval += ft_putsupernbr_fd(va_arg(arguments, unsigned int), 16, 1, fd);
 	else if (conversion == '%')
-		returnvalue += write(1, "%", 1);
-	return (returnvalue);
+		rval += write(fd, "%", 1);
+	return (rval);
 }

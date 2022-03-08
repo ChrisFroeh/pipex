@@ -1,47 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_putaddress_fd.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cfrohlic <cfrohlic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 14:20:58 by cfrohlic          #+#    #+#             */
-/*   Updated: 2022/01/13 12:27:48 by cfrohlic         ###   ########.fr       */
+/*   Updated: 2022/03/07 16:33:31 by cfrohlic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdarg.h>
-#include "ft_printf.h"
+#include "ft_printf_fd.h"
 
 /*
-** writes the characters in 'input' string
-** if '%' appears the conversion gets checked for "cspdiuxX%"
+** writes 'n' as hexadecimal (lowercase)
 ** returns the number of written characters.
 */
 
-int	ft_printf(const char *input, ...)
+int	ft_putaddress_fd(long unsigned int n, int fd)
 {
-	size_t	i;
-	va_list	arguments;
 	int		returnvalue;
+	char	*str0;
+	char	c;
 
-	i = 0;
+	str0 = "0123456789abcdef";
 	returnvalue = 0;
-	va_start(arguments, input);
-	while (input[i] != '\0')
+	if (n > 15)
 	{
-		if (input[i] == '%')
-		{
-			returnvalue += ft_checkconversion(input[i + 1], arguments);
-			i = i + 2;
-		}
-		else
-		{
-			returnvalue += write(1, &input[i], 1);
-			i++;
-		}
+		returnvalue += ft_putaddress_fd(n / 16, fd);
 	}
-	va_end(arguments);
+	c = str0[n % 16];
+	returnvalue += write(fd, &c, 1);
 	return (returnvalue);
 }

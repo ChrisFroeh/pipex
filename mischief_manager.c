@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   mischief_manager.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cfrohlic <cfrohlic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/13 14:20:58 by cfrohlic          #+#    #+#             */
-/*   Updated: 2022/02/11 12:10:16 by cfrohlic         ###   ########.fr       */
+/*   Created: 2022/03/04 16:47:30 by cfrohlic          #+#    #+#             */
+/*   Updated: 2022/03/08 12:32:15 by cfrohlic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "pipex.h"
 
-/*
-** writes the character 'c'
-** returns the number of written characters.
-*/
-
-int	ft_putchar(char c)
+void	mischief_managed(t_data *data, int nbr, char *s)
 {
-	return (write(1, &c, 1));
+	ft_printf_fd(2, "%s: %s: %s\n", data->terminal, strerror(nbr), s);
+	cleanup(data);
+	exit(1);
 }

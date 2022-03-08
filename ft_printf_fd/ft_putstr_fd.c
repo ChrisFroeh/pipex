@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr.c                                        :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cfrohlic <cfrohlic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 14:20:58 by cfrohlic          #+#    #+#             */
-/*   Updated: 2021/10/26 10:07:44 by cfrohlic         ###   ########.fr       */
+/*   Updated: 2022/03/07 16:31:43 by cfrohlic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@
 ** returns the number of written characters.
 */
 
-int	ft_putstr(char *str)
+int	ft_putstr_fd(char *str, int fd)
 {
 	int		returnvalue;
 
 	returnvalue = 0;
 	if (str == NULL)
 	{
-		returnvalue += write(1, "(null)", 6);
+		returnvalue += write(fd, "(null)", 6);
 		return (returnvalue);
 	}
 	while (*str != '\0')
 	{
-		returnvalue += write(1, str, 1);
+		returnvalue += write(fd, str, 1);
 		str++;
 	}
 	return (returnvalue);
