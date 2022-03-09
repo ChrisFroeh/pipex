@@ -9,3 +9,7 @@ pipex_version02:
 pipex_version03:
 	- added logfile.txt
 
+pipex_version04:
+	- added function explanation to each function.
+	- fixed leak
+	- latest version after first evaluation.

@@ -6,11 +6,15 @@
 /*   By: cfrohlic <cfrohlic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:49:27 by cfrohlic          #+#    #+#             */
-/*   Updated: 2022/03/08 15:33:57 by cfrohlic         ###   ########.fr       */
+/*   Updated: 2022/03/09 17:06:54 by cfrohlic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+/* 1/4
+** Closes and duplicates the file descriptors for child process.
+*/
 
 int	redirecting_child(t_data *data, char *envp[])
 {
@@ -29,6 +33,10 @@ int	redirecting_child(t_data *data, char *envp[])
 	return (error);
 }
 
+/* 2/4
+** Closes and duplicates the file descriptors for parent process.
+*/
+
 int	redirecting_parent(t_data *data, char *envp[])
 {
 	int	error;
@@ -45,6 +53,10 @@ int	redirecting_parent(t_data *data, char *envp[])
 		error = cmd_execution(data, envp);
 	return (error);
 }
+
+/* 3/4
+** Executes the command, when it was found.
+*/
 
 int	cmd_execution(t_data *data, char *envp[])
 {
@@ -64,6 +76,10 @@ int	cmd_execution(t_data *data, char *envp[])
 	close(data->fd[READ_END]);
 	return (-1);
 }
+
+/* 4/4
+** Searches in the paths for the command.
+*/
 
 char	*find_executable(t_data *data)
 {

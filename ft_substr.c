@@ -6,13 +6,13 @@
 /*   By: cfrohlic <cfrohlic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 16:58:22 by cfrohlic          #+#    #+#             */
-/*   Updated: 2022/03/04 11:51:06 by cfrohlic         ###   ########.fr       */
+/*   Updated: 2022/03/09 17:12:49 by cfrohlic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-/*
+/* 1/2
 ** Allocates and returns a substring from the string ’s’. The substring begins
 ** at index ’start’ and is of maximum size ’len’.
 ** Returns substring 'ptr' or NULL if the allocation fails.
@@ -43,7 +43,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (ptr);
 }
 
-/*
+/* 2/2
 ** Computes and returns the length of the string 's'.
 */
 

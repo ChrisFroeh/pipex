@@ -6,11 +6,15 @@
 /*   By: cfrohlic <cfrohlic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 11:37:16 by cfrohlic          #+#    #+#             */
-/*   Updated: 2022/03/08 15:37:04 by cfrohlic         ###   ########.fr       */
+/*   Updated: 2022/03/09 17:29:37 by cfrohlic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+/* 1/4
+** Pipex main.
+*/
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -36,6 +40,11 @@ int	main(int argc, char *argv[], char *envp[])
 	return (0);
 }
 
+/* 2/4
+** Child process. Updates the command. Prints error message,
+** frees allocated memory and exits if redirecting fails.
+*/
+
 void	child_process(t_data *data, char *argv[], char *envp[])
 {
 	data->cmd = set_cmd(argv, 2);
@@ -47,6 +56,11 @@ void	child_process(t_data *data, char *argv[], char *envp[])
 	}
 	return ;
 }
+
+/* 3/4
+** Parent process. Updates the command. Prints error message,
+** frees allocated memory and exits if redirecting fails.
+*/
 
 void	parent_process(t_data *data, char *argv[], char *envp[])
 {
@@ -60,6 +74,11 @@ void	parent_process(t_data *data, char *argv[], char *envp[])
 	return ;
 }
 
+/* 4/4
+** Opens the infile and outfile into the correct fd. Prints error message,
+** frees allocated memory and exits if open fails.
+*/
+
 void	open_files(t_data *data, char *argv[])
 {
 	data->input = open(argv[1], O_RDONLY);
@@ -68,8 +87,6 @@ void	open_files(t_data *data, char *argv[])
 		ft_printf_fd(2, "%s: %s: %s\n", data->terminal,
 			strerror(errno), argv[1]);
 		cleanup(data);
-		if (errno == 13)
-			exit(0);
 		exit(1);
 	}
 	data->output = open(argv[4], O_RDWR | O_CREAT | O_TRUNC, 0644);

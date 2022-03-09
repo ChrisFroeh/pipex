@@ -6,13 +6,13 @@
 /*   By: cfrohlic <cfrohlic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/24 10:46:59 by cfrohlic          #+#    #+#             */
-/*   Updated: 2022/03/08 12:22:41 by cfrohlic         ###   ########.fr       */
+/*   Updated: 2022/03/09 17:12:56 by cfrohlic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-/*
+/* 1/1
 ** Allocates sufficient memory for a copy of the string 's1', does the copy,
 ** and returns a pointer 'ptr' to it.
 ** If insufficient memory is available, NULL is returned.

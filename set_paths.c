@@ -6,13 +6,13 @@
 /*   By: cfrohlic <cfrohlic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 11:31:21 by cfrohlic          #+#    #+#             */
-/*   Updated: 2022/03/08 12:24:11 by cfrohlic         ###   ########.fr       */
+/*   Updated: 2022/03/09 17:26:11 by cfrohlic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-/*
+/* 1/5
 ** Splits the string with the multiple paths into an array of single paths.
 */
 
@@ -20,6 +20,7 @@ char	**set_paths(char *envp[])
 {
 	char	**tmp;
 	char	*str;
+	char	*t;
 	int		i;
 
 	str = search_path(envp, "PATH=", 5);
@@ -27,13 +28,15 @@ char	**set_paths(char *envp[])
 	i = 0;
 	while (tmp[i] != NULL)
 	{
-		tmp[i] = ft_strjoin(tmp[i], "/");
+		t = tmp[i];
+		tmp[i] = ft_strjoin(t, "/");
+		free(t);
 		i++;
 	}
 	return (tmp);
 }
 
-/*
+/* 2/5
 ** Splits the string into an array of single strings and returns the last one.
 */
 
@@ -60,7 +63,7 @@ char	*set_terminal(char *envp[])
 	return (terminal);
 }
 
-/*
+/* 3/5
 ** Searches for the line starting with "PATH=" in 'envp'
 ** and returns the string after '='.
 */
@@ -79,7 +82,7 @@ char	*search_path(char *envp[], char *str, int j)
 	return (envp[i]);
 }
 
-/*
+/* 4/5
 ** Compares not more than 'n' characters of the null-terminated strings 's1'
 ** and 's2'.
 ** Returns an integer greater than, equal to, or less than 0, according as the
@@ -109,7 +112,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		return (*str1 - *str2);
 }
 
-/*
+/* 5/5
 ** Allocates and returns a new string 'ptr', which is the result of the
 ** concatenation of ’s1’ and ’s2’.
 */
