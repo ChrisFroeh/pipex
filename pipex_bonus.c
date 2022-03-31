@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cfrohlic <cfrohlic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 11:37:16 by cfrohlic          #+#    #+#             */
-/*   Updated: 2022/03/31 15:32:04 by cfrohlic         ###   ########.fr       */
+/*   Updated: 2022/03/31 15:30:15 by cfrohlic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int	main(int argc, char *argv[], char *envp[])
 	data.terminal = set_terminal(envp);
 	if (argc < 5)
 		mischief_managed(&data, EINVAL, "not enough arguments", 1);
-	if (argc > 5)
-		mischief_managed(&data, EINVAL, "too many arguments", 1);
 	data.tmpfd = 0;
 	data.paths = set_paths(envp);
 	split_process(&data, argc, argv, envp);

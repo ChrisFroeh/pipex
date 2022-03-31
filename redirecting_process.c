@@ -6,7 +6,7 @@
 /*   By: cfrohlic <cfrohlic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:49:27 by cfrohlic          #+#    #+#             */
-/*   Updated: 2022/03/09 17:06:54 by cfrohlic         ###   ########.fr       */
+/*   Updated: 2022/03/31 12:40:23 by cfrohlic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ int	redirecting_child(t_data *data, char *envp[])
 	int	error;
 
 	error = (
-			close(data->output) == -1
-			|| dup2(data->input, STDIN_FILENO) == -1
-			|| close(data->input) == -1
+			dup2(data->fd[READ_END], STDIN_FILENO) == -1
 			|| close(data->fd[READ_END]) == -1
 			|| dup2(data->fd[WRITE_END], STDOUT_FILENO) == -1
 			|| close(data->fd[WRITE_END]) == -1
@@ -33,17 +31,16 @@ int	redirecting_child(t_data *data, char *envp[])
 	return (error);
 }
 
-/* 2/4
-** Closes and duplicates the file descriptors for parent process.
+/* 1/4
+** Closes and duplicates the file descriptors for the last child process.
 */
 
-int	redirecting_parent(t_data *data, char *envp[])
+int	redirecting_last_child(t_data *data, char *envp[])
 {
 	int	error;
 
 	error = (
-			close(data->input) == -1
-			|| dup2(data->fd[READ_END], STDIN_FILENO) == -1
+			dup2(data->fd[READ_END], STDIN_FILENO) == -1
 			|| close(data->fd[READ_END]) == -1
 			|| close(data->fd[WRITE_END]) == -1
 			|| dup2(data->output, STDOUT_FILENO) == -1
@@ -67,7 +64,7 @@ int	cmd_execution(t_data *data, char *envp[])
 	{
 		ft_printf_fd(2, "%s: command not found: %s\n",
 			data->terminal, data->cmd[0]);
-		cleanup(data);
+		cleanup(data, 'a');
 		exit(127);
 	}
 	else
